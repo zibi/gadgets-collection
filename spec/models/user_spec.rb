@@ -2,14 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do  
   it "validates presence of email" do
-    expect(subject).to be_invalid
-    expect(subject.errors[:email]).to_not be_empty
+    expect(subject).to validate_presence_of(:email)
   end
 
   it 'validates uniqueness of email' do
-    saved_user = create(:user, email: 'test@test.com')
-    subject.email = 'test@test.com'
-    expect(subject).to be_invalid    
-    expect(subject.errors[:email].join).to match /taken/
+    expect(subject).to validate_uniqueness_of(:email)
   end
 end
