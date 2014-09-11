@@ -6,4 +6,8 @@ FactoryGirl.define do
     sequence(:name) {|i| "gadget ##{i}"}
     description "gadget description"
   end
+  
+  factory :invalid_gadget, parent: :gadget do
+    name nil
+  end
 end

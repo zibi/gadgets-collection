@@ -163,4 +163,49 @@ RSpec.describe GadgetsController, :type => :controller do
       end
     end
   end
+  
+  describe "POST create" do
+
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        post :create, gadget: attributes_for(:gadget)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+    
+    context 'user is signed in' do
+      let(:user) { create(:user) }
+
+      before :each do
+        sign_in user
+      end
+
+      context "with valid parameters for Gadget" do
+        it 'creates new instance of Gadget' do          
+          expect { post :create, gadget: attributes_for(:gadget) }.to change(Gadget, :count).by(1)
+        end
+
+        it 'sets signed in user as creator of the gadget' do
+          post :create, gadget: attributes_for(:gadget)
+          expect(Gadget.last.user).to eq user
+        end
+        
+        it 'redirects to show page for created gadget' do
+          post :create, gadget: attributes_for(:gadget)
+          expect(response).to redirect_to Gadget.last
+        end
+      end
+      
+      context "with invalid parameters for Gadget" do
+        it 'does not create new instance of Gadget' do          
+          expect { post :create, gadget: attributes_for(:invalid_gadget) }.to_not change(Gadget, :count)
+        end
+        
+        it 'renders new template' do
+          post :create, gadget: attributes_for(:invalid_gadget)
+          expect(response).to render_template(:new)
+        end
+      end
+    end
+  end
 end

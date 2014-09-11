@@ -16,4 +16,13 @@ class GadgetsController < ApplicationController
   def new
     @gadget = Gadget.new
   end
+
+  def create
+    @gadget = current_user.gadgets.create params.require(:gadget).permit(:name, :description)
+    if @gadget.valid?
+      redirect_to @gadget
+    else
+      render :new
+    end
+  end
 end
