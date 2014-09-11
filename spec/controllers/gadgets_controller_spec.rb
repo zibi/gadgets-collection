@@ -68,6 +68,22 @@ RSpec.describe GadgetsController, :type => :controller do
           get :show, id: gadget.to_param
           expect(response).to have_http_status(:success)          
         end
+
+        it 'renders show template' do
+          get :show, id: gadget.to_param
+          expect(response).to render_template(:show)
+        end
+        
+        it 'assigns gadget' do
+          get :show, id: gadget.to_param
+          expect(assigns(:gadget)).to eq gadget
+        end
+      end
+
+      context "gadget does not exist" do
+        it 'raises not found exception' do
+          expect { get :show, id: 1}.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

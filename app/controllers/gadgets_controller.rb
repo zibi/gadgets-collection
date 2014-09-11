@@ -6,5 +6,6 @@ class GadgetsController < ApplicationController
   end
 
   def show
+    @gadget = current_user.gadgets.find(params[:id])
   end
 end
