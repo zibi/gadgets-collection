@@ -208,4 +208,60 @@ RSpec.describe GadgetsController, :type => :controller do
       end
     end
   end
+  
+  describe "PUT update" do
+
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        put :update, id: 1, gadget: attributes_for(:gadget)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+    
+    
+    context 'user is signed in' do
+      let(:user) { create(:user) }
+
+      let(:gadget) { create(:gadget, user: user) }
+      
+      before :each do
+        sign_in user
+      end
+      
+      it 'assigns gadget' do
+        put :update, id: gadget.to_param, gadget: attributes_for(:gadget)
+        expect(assigns(:gadget)).to eq gadget
+      end
+      
+      context "with valid params" do
+        it 'redirects to show page' do
+          put :update, id: gadget.to_param, gadget: attributes_for(:gadget)
+          expect(response).to redirect_to gadget
+        end
+        
+        it 'updates the gadget' do
+          put :update, id: gadget.to_param, gadget: attributes_for(:gadget, name: 'updated name')
+          gadget.reload
+          expect(gadget.name).to eq 'updated name'
+        end
+      end
+      
+      context "with invalid params" do
+        it 'renders edit page' do
+          put :update, id: gadget.to_param, gadget: attributes_for(:invalid_gadget)
+          expect(response).to render_template :edit
+        end 
+      end
+    end
+  end
+  
+  describe "DELETE destroy" do
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        delete :destroy, id: 1
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+    
+  end
 end

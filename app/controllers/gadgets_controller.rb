@@ -25,4 +25,13 @@ class GadgetsController < ApplicationController
       render :new
     end
   end
+  
+  def update
+    @gadget = current_user.gadgets.find(params[:id])
+    if @gadget.update(params.require(:gadget).permit(:name, :description))
+      redirect_to @gadget
+    else
+      render :edit
+    end
+  end
 end
