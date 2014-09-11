@@ -34,4 +34,11 @@ class GadgetsController < ApplicationController
       render :edit
     end
   end
+  
+  
+  def destroy
+    @gadget = current_user.gadgets.find(params[:id])
+    @gadget.destroy
+    redirect_to gadgets_url
+  end
 end
