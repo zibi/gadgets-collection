@@ -87,4 +87,46 @@ RSpec.describe GadgetsController, :type => :controller do
       end
     end
   end
+  
+  
+  describe "GET edit" do
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        get :index
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'user is signed in' do
+      let(:user) { create(:user) }
+
+      before :each do
+        sign_in user
+      end
+
+      context "gadget exists" do
+        let(:gadget) { create(:gadget, user: user)}
+
+        it 'is successfull' do
+          get :edit, id: gadget.to_param
+          expect(response).to have_http_status(:success)          
+        end
+
+        it 'renders edit template' do
+          get :edit, id: gadget.to_param
+          expect(response).to render_template(:edit)
+        end
+      
+        it 'assigns gadget' do
+          get :edit, id: gadget.to_param
+          expect(assigns(:gadget)).to eq gadget
+        end        
+      end
+      # context "gadget does not exist" do
+      #   it 'raises not found exception' do
+      #     expect { get :show, id: 1}.to raise_error(ActiveRecord::RecordNotFound)
+      #   end
+      # end
+    end
+  end
 end

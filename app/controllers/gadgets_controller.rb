@@ -8,4 +8,8 @@ class GadgetsController < ApplicationController
   def show
     @gadget = current_user.gadgets.find(params[:id])
   end
+  
+  def edit
+    @gadget = current_user.gadgets.find(params[:id])
+  end
 end
