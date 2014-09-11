@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911193834) do
+ActiveRecord::Schema.define(version: 20140911201015) do
 
   create_table "gadgets", force: true do |t|
     t.string   "name",        default: "", null: false
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20140911193834) do
   end
 
   add_index "gadgets", ["user_id"], name: "index_gadgets_on_user_id"
+
+  create_table "images", force: true do |t|
+    t.string   "content_file_name"
+    t.string   "content_content_type"
+    t.integer  "content_file_size"
+    t.datetime "content_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "gadget_id"
+  end
+
+  add_index "images", ["gadget_id"], name: "index_images_on_gadget_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

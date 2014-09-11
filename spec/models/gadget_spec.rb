@@ -12,4 +12,8 @@ RSpec.describe Gadget, :type => :model do
   it 'belongs to user' do
     expect(subject).to belong_to(:user)
   end
+  
+  it 'has many images' do
+    expect(subject).to have_many(:images)
+  end
 end
