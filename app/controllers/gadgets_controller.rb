@@ -4,4 +4,7 @@ class GadgetsController < ApplicationController
   def index
     @gadgets = current_user.gadgets
   end
+
+  def show
+  end
 end
