@@ -1,0 +1,13 @@
+<p>
+  <strong>Name:</strong>
+  <%= @gadget.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @gadget.description %>
+</p>
+<p>
+  <%= link_to 'back', gadgets_path %>
+  <%= link_to 'edit', edit_gadget_path(@gadget) %>
+  <%= link_to 'destroy', @gadget, method: :delete %>
+</p>
