@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :gadget do
-    name "MyString"
-    description "MyText"
+    user
+    sequence(:name) {|i| "gadget ##{i}"}
+    description "gadget description"
   end
 end

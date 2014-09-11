@@ -10,6 +10,6 @@ RSpec.describe User, :type => :model do
   end
   
   it 'has many gadgets' do
-    expect(subject).to have_many(:gadgets)    
+    expect(subject).to have_many(:gadgets)
   end
 end
