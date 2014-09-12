@@ -6,6 +6,11 @@ class ImagesController < ApplicationController
     @images = @gadget.images
   end
   
+  
+  def show
+    @image = @gadget.images.find(params[:id])
+  end
+  
   private
   
   def set_gadget
