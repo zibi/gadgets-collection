@@ -34,6 +34,11 @@ class ImagesController < ApplicationController
     end
   end
   
+  def destroy
+    @image.destroy
+    redirect_to gadget_images_url(@gadget)
+  end
+
   private
   
   def set_gadget

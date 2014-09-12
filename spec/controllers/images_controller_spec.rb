@@ -227,4 +227,32 @@ RSpec.describe ImagesController, :type => :controller do
       end
     end
   end
+  
+  describe "DELETE destroy" do
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        delete :destroy, gadget_id: gadget.to_param, id: 1
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+    
+    context 'user is signed in' do
+      let(:image) { create(:image, gadget: gadget)}
+      
+      before :each do
+        sign_in user
+      end
+      
+      it 'destroys the image' do
+        image # otherwise change matcher does not work properly 
+        expect { delete :destroy, gadget_id: gadget.to_param, id: image.to_param }.to change(Image, :count).by(-1)
+      end
+
+      it 'redirects to image list' do
+        delete :destroy, gadget_id: gadget.to_param, id: image.to_param
+        expect(response).to redirect_to gadget_images_url(gadget)
+      end
+    end
+  end
+  
 end
