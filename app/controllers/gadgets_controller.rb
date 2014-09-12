@@ -1,16 +1,16 @@
 class GadgetsController < ApplicationController
   before_action :authenticate_user!
 
+  before_action :set_gadget, only: [:show, :edit, :update, :destroy]
+
   def index
     @gadgets = current_user.gadgets
   end
 
   def show
-    @gadget = current_user.gadgets.find(params[:id])
   end
 
   def edit
-    @gadget = current_user.gadgets.find(params[:id])
   end
 
   def new
@@ -18,7 +18,7 @@ class GadgetsController < ApplicationController
   end
 
   def create
-    @gadget = current_user.gadgets.create params.require(:gadget).permit(:name, :description)
+    @gadget = current_user.gadgets.create gadgets_params
     if @gadget.valid?
       redirect_to @gadget
     else
@@ -27,8 +27,7 @@ class GadgetsController < ApplicationController
   end
   
   def update
-    @gadget = current_user.gadgets.find(params[:id])
-    if @gadget.update(params.require(:gadget).permit(:name, :description))
+    if @gadget.update(gadgets_params)
       redirect_to @gadget
     else
       render :edit
@@ -37,8 +36,17 @@ class GadgetsController < ApplicationController
   
   
   def destroy
-    @gadget = current_user.gadgets.find(params[:id])
     @gadget.destroy
     redirect_to gadgets_url
+  end
+  
+  private
+  
+  def gadgets_params
+    params.require(:gadget).permit(:name, :description)
+  end
+  
+  def set_gadget
+    @gadget = current_user.gadgets.find(params[:id])
   end
 end
