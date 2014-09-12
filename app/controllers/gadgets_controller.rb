@@ -7,10 +7,13 @@ class GadgetsController < ApplicationController
     @gadgets = current_user.gadgets
   end
 
+  def search
+    @gadgets = current_user.gadgets.where(['name LIKE ?', "%#{params.require(:query)}%"])
+  end
+
   def flow
     @images = current_user.images
   end
-
 
   def show
   end

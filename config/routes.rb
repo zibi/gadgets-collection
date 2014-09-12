@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :gadgets do
     get 'flow', on: :collection
-    
+    get 'search', on: :collection
     resources :images
   end
 

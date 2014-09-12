@@ -1,7 +1,5 @@
 <h1>Gadgets collection</h1>
 <ul>
-  <% @gadgets.each do |gadget| %>
-    <li><%= link_to gadget.name, gadget %></li>
-  <% end %>
-  <li><%= link_to 'add gadget', new_gadget_path %></li>
+<%= render(partial: "gadget", collection: @gadgets) || '<li>collection is empty</li>' %>
 </ul>
+<%= link_to 'add gadget', new_gadget_path %>
