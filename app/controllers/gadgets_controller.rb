@@ -7,6 +7,11 @@ class GadgetsController < ApplicationController
     @gadgets = current_user.gadgets
   end
 
+  def flow
+    @gadgets = current_user.gadgets.includes(:images)    
+  end
+
+
   def show
   end
 

@@ -1,0 +1,16 @@
+<div class="container">
+  <div id="gadgets-carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <% @gadgets.each do |gadget| %>
+        <%= render partial: 'flow_image', collection: gadget.images %>
+      <% end %>
+    </div>
+  
+    <a class="left carousel-control" href="#gadgets-carousel" role="button" data-slide="prev">
+       <span class="glyphicon glyphicon-chevron-left"></span>
+     </a>
+     <a class="right carousel-control" href="#gadgets-carousel" role="button" data-slide="next">
+       <span class="glyphicon glyphicon-chevron-right"></span>
+     </a>
+  </div>
+</div>
