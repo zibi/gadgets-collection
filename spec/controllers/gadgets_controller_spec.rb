@@ -92,7 +92,7 @@ RSpec.describe GadgetsController, :type => :controller do
   describe "GET edit" do
     context 'user is not signed in' do
       it 'redirects to sign in page' do
-        get :index
+        get :edit, id: 1
         expect(response).to redirect_to(new_user_session_path)
       end
     end
