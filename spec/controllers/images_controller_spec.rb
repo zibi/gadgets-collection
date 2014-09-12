@@ -139,5 +139,48 @@ RSpec.describe ImagesController, :type => :controller do
       end
     end
   end
-  
+
+  describe "POST create" do
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        post :create, gadget_id: gadget.to_param, image: attributes_for(:image)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'user is signed in' do
+      before :each do
+        sign_in user
+      end
+
+      context "with valid parameters for Image" do
+        it 'creates new instance of Image' do
+          expect { post :create, gadget_id: gadget.to_param, 
+            image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')} }.to change(Image, :count).by(1)
+        end
+
+        it 'add the image to gadget images' do
+          post :create, gadget_id: gadget.to_param, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+          gadget.reload
+          expect(Image.last.gadget).to eq gadget
+        end
+
+        it 'redirects to show page for created image' do
+          post :create, gadget_id: gadget.to_param, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+          expect(response).to redirect_to [gadget, Image.last]
+        end
+      end
+
+      context "with invalid parameters for Image" do
+        it 'does not create new instance of Image' do
+          expect { post :create, gadget_id: gadget.to_param, image: { content: nil} }.to_not change(Image, :count)
+        end
+
+        it 'renders new template' do
+          post :create, gadget_id: gadget.to_param, image: { content: nil }
+          expect(response).to render_template(:new)
+        end
+      end
+    end
+  end  
 end

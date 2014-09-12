@@ -16,6 +16,16 @@ class ImagesController < ApplicationController
     @image = Image.new
   end
 
+
+  def create
+    @image = @gadget.images.create image_params
+    if @image.valid?
+      redirect_to [@gadget, @image]
+    else
+      render :new
+    end
+  end
+  
   private
   
   def set_gadget
@@ -24,5 +34,9 @@ class ImagesController < ApplicationController
   
   def set_image
     @image = @gadget.images.find(params[:id])
+  end
+  
+  def image_params
+    params.require(:image).permit(:content)
   end
 end
