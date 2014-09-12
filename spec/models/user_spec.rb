@@ -12,4 +12,8 @@ RSpec.describe User, :type => :model do
   it 'has many gadgets' do
     expect(subject).to have_many(:gadgets)
   end
+  
+  it 'has many images through gadgets' do
+    expect(subject).to have_many(:images).through(:gadgets)
+  end
 end

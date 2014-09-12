@@ -8,7 +8,7 @@ class GadgetsController < ApplicationController
   end
 
   def flow
-    @gadgets = current_user.gadgets.includes(:images)    
+    @images = current_user.images
   end
 
 
