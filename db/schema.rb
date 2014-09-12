@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911201015) do
+ActiveRecord::Schema.define(version: 20140912023532) do
 
   create_table "gadgets", force: true do |t|
     t.string   "name",        default: "", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20140911201015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "gadget_id"
+    t.string   "title"
   end
 
   add_index "images", ["gadget_id"], name: "index_images_on_gadget_id"

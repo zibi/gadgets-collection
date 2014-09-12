@@ -1,0 +1,7 @@
+<h1>Images for gadget: <%= @gadget.name %></h1>
+<ul>
+  <% @images.each do |image| %>
+    <li><%= link_to(image_tag(image.content.url(:thumb)), gadget_image_path(@gadget, image))  %> <%= image.title %></li>
+  <% end %>
+  <li><%= link_to 'add new image', new_gadget_image_path(@gadget) %></li>
+</ul>

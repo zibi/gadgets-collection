@@ -1,0 +1,5 @@
+<%= form_for [@gadget, @image], html: { multipart: true } do |f| %>
+  Title: <%= f.text_field :title %><br />
+  image: <%= f.file_field :content %><br />
+  <%= f.submit %>
+<% end %>
