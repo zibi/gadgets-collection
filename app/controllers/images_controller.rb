@@ -12,6 +12,10 @@ class ImagesController < ApplicationController
   def show
   end
   
+  def new
+    @image = Image.new
+  end
+
   private
   
   def set_gadget

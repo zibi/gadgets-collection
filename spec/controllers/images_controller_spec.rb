@@ -107,4 +107,37 @@ RSpec.describe ImagesController, :type => :controller do
       end
     end
   end
+  
+  describe "GET new" do
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        get :new, gadget_id: gadget.to_param
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'user is signed in' do
+      let(:user) { create(:user) }
+
+      before :each do
+        sign_in user
+      end
+
+      it 'is successfull' do
+        get :new, gadget_id: gadget.to_param
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'renders new template' do
+        get :new, gadget_id: gadget.to_param
+        expect(response).to render_template(:new)
+      end
+
+      it 'assigns new instance of Gadget' do
+        get :new, gadget_id: gadget.to_param
+        expect(assigns(:image)).to be_a_new(Image)
+      end
+    end
+  end
+  
 end
