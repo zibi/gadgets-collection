@@ -3,5 +3,7 @@ class Image < ActiveRecord::Base
 
   has_attached_file :content, styles: {thumb: "100x100#"}
 
+  validates_attachment_presence :content
+
   validates_attachment_content_type :content, :content_type => /\Aimage/
 end
