@@ -1,5 +1,5 @@
 <h1>Search results for <%= @query %></h1>
 <ul>
-<%= render(partial: "gadget", collection: @gadgets) || '<li>no gadget found.</li>' %>
+<%= render(partial: "gadget", collection: @gadgets) || 'no gadget found.' %>
 </ul>
 <%= link_to 'show all', gadgets_path %>

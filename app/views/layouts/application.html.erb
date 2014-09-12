@@ -18,9 +18,9 @@
       </button>
       <%= link_to 'Gadgets', gadgets_path, class: "navbar-brand" %>
     </div>
-    <form class="navbar-form navbar-left" id="search-form">
-      <input type="text" class="form-control" placeholder="search"/>
-    </form>
+    <%= form_tag search_gadgets_path, method: :get, class: "navbar-form navbar-left", id: "search-form" do %>
+      <input type="text" name="query" class="form-control" placeholder="search"/>
+    <% end %>
     <ul class="nav navbar-nav">
       <li><%= link_to 'list view', gadgets_path %></li>
       <li><%= link_to 'cover flow', flow_gadgets_path %></li>

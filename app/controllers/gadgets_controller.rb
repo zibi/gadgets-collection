@@ -8,7 +8,8 @@ class GadgetsController < ApplicationController
   end
 
   def search
-    @gadgets = current_user.gadgets.where(['name LIKE ?', "%#{params.require(:query)}%"])
+    @query = params.require(:query)
+    @gadgets = current_user.gadgets.where(['name LIKE ?', "%#{@query}%"])
   end
 
   def flow

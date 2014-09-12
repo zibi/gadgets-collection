@@ -322,6 +322,11 @@ RSpec.describe GadgetsController, :type => :controller do
         get :search, query: 'gadget'
         expect(assigns(:gadgets)).to_not include(other_gadget)
       end
+
+      it 'assings query' do
+        get :search, query: 'gadget'
+        expect(assigns(:query)).to eq 'gadget'
+      end
     end
     
   end
