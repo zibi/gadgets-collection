@@ -27,6 +27,8 @@ gem "devise"
 
 gem "paperclip"
 
+gem 'bootstrap-sass'
+
 group :development, :test do
   gem 'spring'
   gem 'rspec'

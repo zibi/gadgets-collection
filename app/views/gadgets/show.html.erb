@@ -8,6 +8,7 @@
 </p>
 <p>
   <%= link_to 'back', gadgets_path %>
+  <%= link_to 'add images', gadget_images_path(@gadget) %>
   <%= link_to 'edit', edit_gadget_path(@gadget) %>
   <%= link_to 'destroy', @gadget, method: :delete %>
 </p>
