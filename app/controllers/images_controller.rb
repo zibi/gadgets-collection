@@ -25,6 +25,14 @@ class ImagesController < ApplicationController
       render :new
     end
   end
+
+  def update
+    if @image.update(image_params)
+      redirect_to [@gadget, @image]
+    else
+      render :edit
+    end
+  end
   
   private
   

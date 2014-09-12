@@ -182,5 +182,49 @@ RSpec.describe ImagesController, :type => :controller do
         end
       end
     end
-  end  
+  end
+  
+  describe "PUT update" do
+
+    context 'user is not signed in' do
+      it 'redirects to sign in page' do
+        put :update, gadget_id: gadget.to_param, id: 1, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+
+    context 'user is signed in' do
+      let(:image) { create(:image, gadget: gadget)}
+
+      before :each do
+        sign_in user
+      end
+
+      it 'assigns gadget' do
+        put :update, gadget_id: gadget.to_param, id: image.to_param, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+        expect(assigns(:image)).to eq image
+      end
+
+      context "with valid params" do
+        it 'redirects to show page' do
+          put :update, gadget_id: gadget.to_param, id: image.to_param, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+          expect(response).to redirect_to [gadget, image]
+        end
+
+        it 'updates the gadget' do
+          put :update, gadget_id: gadget.to_param, id: image.to_param, image: { content: fixture_file_upload('spec/test.jpg', 'image/jpeg')}
+          image.reload
+          expect(image.content_file_size).to eq 2568
+        end
+      end
+
+      context "with invalid params" do
+        it 'renders edit page' do
+          put :update, gadget_id: gadget.to_param, id: image.to_param, image: { content: nil}
+          expect(response).to render_template :edit
+        end
+      end
+    end
+  end
 end
